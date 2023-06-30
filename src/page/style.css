@@ -1,0 +1,148 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Roboto Mono", monospace;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+h1:hover {
+    color: rgb(0, 125, 125);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.form-group input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline-color: darkcyan;
+}
+
+.form-group input[type="text"]::-webkit-input-placeholder {
+    font-family: "Roboto Mono", monospace;
+}
+
+.form-group button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: rgb(0, 125, 125);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form-group button:hover {
+    background-color: rgb(1, 144, 144);
+}
+
+.output {
+    background-color: #fff;
+    padding: 0 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    min-height: 40px;
+}
+
+/* Tree View */
+
+.hidden {
+    display: none;
+}
+
+.tree-view {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.tree-view ul {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+.tree-view li {
+    position: relative;
+}
+
+.tree-view .folder-header {
+    position: relative;
+    cursor: pointer;
+}
+.tree-view .folder-header .icon-arrow {
+    position: absolute;
+    left: -12px;
+}
+
+.tree-view .folder .folder-header,
+.tree-view .file {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.tree-view .folder .folder-header:hover,
+.tree-view .file:hover {
+    background-color: #ccc;
+}
+
+.tree-view .file .file-name {
+    flex-grow: 1;
+}
+
+.tree-view .file .file-size {
+    color: white;
+    font-size: 12px;
+    margin-left: 10px;
+    display: inline-block;
+    background-color: darkcyan;
+    padding: 2px 8px;
+    border-radius: 12px;
+    min-width: 70px;
+    text-align: center;
+}
+.tree-view .file .file-download {
+    border: none;
+    border-radius: 4px;
+    padding: 2px 8px;
+    cursor: pointer;
+}
+.tree-view .fa-folder-open,
+.tree-view .fa-folder,
+.tree-view .fa-file,
+.tree-view .fa-file-video,
+.tree-view .fa-file-audio,
+.tree-view .fa-file-image,
+.tree-view .fa-file-lines,
+.tree-view .fa-download {
+    color: darkcyan;
+}
+.tree-view .fa-folder,
+.tree-view .fa-file {
+    min-width: 16px;
+}

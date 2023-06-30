@@ -1,11 +1,10 @@
-import { Context, Hono } from "hono"
+import { Hono } from "hono"
+import { serveStatic } from "hono/cloudflare-workers"
 
 const home = new Hono()
 
-home.get("/", (c: Context) => {
-    console.log(c.env.API_TOKEN)
-
-    return c.json({ ok: true, message: "Home" })
-})
+home.get("/", serveStatic({ root: "./", path: "./home.html" }))
+home.use("/favicon.ico", serveStatic({ path: "./favicon.ico" }))
+home.get("/*", serveStatic({ root: "./" }))
 
 export default home
