@@ -42,8 +42,12 @@ const TreeView = (function () {
                 li.className = "file"
 
                 li.innerHTML = `<i class="fa-solid ${getFileIcon(item.category)}"></i>
-                                <span class="file-name">${item.name}</span>
-                                <span class="file-size">${item.size}</span>`
+                                <span class="file-name">${item.name}</span>`
+
+                // create <button class="size-and-download">
+                const sizeAndDownloadDiv = document.createElement("div")
+                sizeAndDownloadDiv.className = "size-and-download"
+                sizeAndDownloadDiv.innerHTML = `<span class="file-size">${item.size}</span>`
 
                 // create <button class="file-download">
                 const fileDownloadBtn = document.createElement("button")
@@ -52,7 +56,8 @@ const TreeView = (function () {
                 fileDownloadBtn.onclick = item.downloadAction
 
                 // append fileDownloadBtn to li
-                li.appendChild(fileDownloadBtn)
+                sizeAndDownloadDiv.appendChild(fileDownloadBtn)
+                li.appendChild(sizeAndDownloadDiv)
 
                 // append li to rootList
                 rootList.appendChild(li)

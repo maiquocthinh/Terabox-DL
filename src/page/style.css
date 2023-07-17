@@ -111,10 +111,16 @@ h1:hover {
     background-color: #ccc;
 }
 
+.tree-view .folder .folder-name,
 .tree-view .file .file-name {
     flex-grow: 1;
+    overflow-wrap: anywhere;
 }
 
+.tree-view .file .size-and-download {
+    display: flex;
+    gap: 8px;
+}
 .tree-view .file .file-size {
     color: white;
     font-size: 12px;
@@ -145,4 +151,20 @@ h1:hover {
 .tree-view .fa-folder,
 .tree-view .fa-file {
     min-width: 16px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 740px) {
+    .container {
+        padding: 12px;
+    }
+
+    .tree-view .file .size-and-download {
+        flex-direction: column;
+        align-items: center;
+    }
+    .tree-view .folder .folder-name,
+    .tree-view .file .file-name {
+        font-size: 14px;
+    }
 }
