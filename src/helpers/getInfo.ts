@@ -1,8 +1,9 @@
-const getInfoRecursive = async (shortUrl: string, dir: string = "", root: string = "0") => {
+const getInfoRecursive = async (shortUrl: string, dir: string = "", root: string = "0", cookie: string = "") => {
     const queryString = new URLSearchParams({ app_id: "250528", shorturl: shortUrl, root, dir }).toString()
 
     const response: any = await fetch("https://www.terabox.com/api/shorturlinfo?" + queryString, {
         method: "GET",
+        headers: { Cookie: cookie },
     }).then(async (res) => await res.json())
 
     if (response.errno != 0) throw new Error("Failed get data")
@@ -14,18 +15,24 @@ const getInfoRecursive = async (shortUrl: string, dir: string = "", root: string
         size: file.size,
         filename: file.server_filename,
         create_time: file.server_ctime,
-        children: file.isdir ? await getInfoRecursive(shortUrl, file.path, "0") : undefined,
+        children: file.isdir ? await getInfoRecursive(shortUrl, file.path, "0", cookie) : undefined,
     }))
 
     const children = await Promise.all(childrenPromises)
     return children
 }
-const getAllInfo = async (shortUrl: string) => {
+
+const getAllInfo = async (shortUrl: string, pwd: string = "") => {
     try {
+        // get Cookie if share link need password
+        let cookie: string = ""
+        if (pwd) cookie = await getCookieWithPass(shortUrl, pwd)
+
         const queryString = new URLSearchParams({ app_id: "250528", shorturl: shortUrl, root: "1" }).toString()
 
         const response: any = await fetch("https://www.terabox.com/api/shorturlinfo?" + queryString, {
             method: "GET",
+            headers: { Cookie: cookie },
         }).then(async (res) => await res.json())
 
         if (response.errno != 0) throw new Error("Failed get data")
@@ -37,7 +44,7 @@ const getAllInfo = async (shortUrl: string) => {
             size: file.size,
             filename: file.server_filename,
             create_time: file.server_ctime,
-            children: file.isdir ? await getInfoRecursive(shortUrl, file.path, "0") : undefined,
+            children: file.isdir ? await getInfoRecursive(shortUrl, file.path, "0", cookie) : undefined,
         }))
 
         const list = await Promise.all(listPromises)
@@ -56,6 +63,19 @@ const getAllInfo = async (shortUrl: string) => {
             message: error.message,
         }
     }
+}
+
+const getCookieWithPass = async (shortUrl: string, pwd: string) => {
+    const queryString = new URLSearchParams({ app_id: "250528", surl: shortUrl.slice(1) }).toString()
+
+    return await fetch("https://www.terabox.com/share/verify?" + queryString, {
+        method: "POST",
+        body: new URLSearchParams({ pwd }),
+    }).then(async (res) => {
+        const response: any = await res.json()
+        if (response.errno != 0) throw new Error("Password wrong!!!")
+        return res.headers.get("Set-Cookie")?.split(" ")[0] || ""
+    })
 }
 
 export default getAllInfo

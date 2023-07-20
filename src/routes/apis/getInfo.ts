@@ -4,9 +4,9 @@ import getAllInfo from "../../helpers/getInfo"
 const getInfo = new Hono()
 
 getInfo.get("/", async (c) => {
-    const { shorturl: shortUrl } = await c.req.query()
+    const { shorturl, pwd } = await c.req.query()
 
-    const info: any = await getAllInfo(shortUrl)
+    const info: any = await getAllInfo(shorturl, pwd)
 
     return c.json(info)
 })

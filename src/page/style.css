@@ -25,11 +25,13 @@ h1:hover {
 
 .form-group {
     margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 5px;
     color: #555;
 }
 
@@ -47,6 +49,7 @@ h1:hover {
 }
 
 .form-group button {
+    max-width: 100px;
     padding: 10px 20px;
     font-size: 16px;
     background-color: rgb(0, 125, 125);
@@ -59,7 +62,9 @@ h1:hover {
 .form-group button:hover {
     background-color: rgb(1, 144, 144);
 }
-
+#input-password {
+    max-width: 170px;
+}
 .output {
     background-color: #fff;
     padding: 0 8px;

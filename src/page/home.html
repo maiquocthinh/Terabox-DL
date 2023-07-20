@@ -20,6 +20,7 @@
             <div class="form-group">
                 <label for="input-url">Enter URL:</label>
                 <input type="text" id="input-url" placeholder="https://terabox.com/s/117NfiRSK_e4ImEEDqQGh_g" />
+                <input type="text" id="input-password" placeholder="Password (Option)" />
             </div>
             <div class="form-group">
                 <button id="get-link-button">Get Link</button>
@@ -47,8 +48,8 @@
                 })
             }
 
-            function fetchInfo(shortUrl){
-                return fetch("/api/get-info?shorturl=" + shortUrl).then(async function (res) {
+            function fetchInfo(shortUrl, pwd = ''){
+                return fetch(`/api/get-info?shorturl=${shortUrl}&pwd=${pwd}`).then(async function (res) {
                         const body = await res.json()
 
                         if (!body.ok) return alert(body.message)
@@ -89,10 +90,12 @@
 
             const getLinkButton = document.getElementById("get-link-button")
             const inputUrl = document.getElementById("input-url")
+            const inputPassword = document.getElementById("input-password")
             const treeViewElement = document.querySelector(".tree-view")
 
             getLinkButton.addEventListener("click", async function () {
                 const url = inputUrl.value
+                const pwd = inputPassword.value
 
                 if(!url) return alert('Url must not empty!!')
 
@@ -103,7 +106,7 @@
 
                     treeViewElement.innerHTML = '<p style="text-align:center;">Loading...</p>'
                     
-                    const d = await fetchInfo(shortUrl)
+                    const d = await fetchInfo(shortUrl, pwd)
                     
                     treeViewElement.innerHTML = ''
                     

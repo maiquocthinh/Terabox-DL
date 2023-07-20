@@ -4,7 +4,7 @@ import api from "./apis"
 
 const routes = new Hono()
 
-routes.route("/", home)
 routes.route("/api", api)
+routes.route("/", home)
 
 export default routes
