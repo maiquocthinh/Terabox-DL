@@ -1,7 +1,7 @@
 const getInfoRecursive = async (shortUrl: string, dir: string = "", root: string = "0", cookie: string = "") => {
-    const queryString = new URLSearchParams({ app_id: "250528", shorturl: shortUrl, root, dir }).toString()
+    const queryString = new URLSearchParams({ app_id: "250528", shorturl: shortUrl.slice(1), root, dir }).toString()
 
-    const response: any = await fetch("https://www.terabox.com/api/shorturlinfo?" + queryString, {
+    const response: any = await fetch("https://www.terabox.com/share/list?" + queryString, {
         method: "GET",
         headers: { Cookie: cookie },
     }).then(async (res) => await res.json())
