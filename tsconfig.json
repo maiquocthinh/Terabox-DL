@@ -9,7 +9,8 @@
       "esnext"
     ],
     "types": [
-      "@cloudflare/workers-types"
+      "@cloudflare/workers-types",
+      "jest"
     ],
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx"
