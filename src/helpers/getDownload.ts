@@ -16,7 +16,7 @@ const getDLink = async ({ shareid, uk, sign, timestamp, fs_id }: any, { cookie, 
         fid_list: `[${fs_id}]`,
     }).toString()
 
-    const response: any = await fetch("https://www.terabox.com/share/download?" + queryString, {
+    const response: any = await fetch("https://www.1024tera.com/share/download?" + queryString, {
         method: "GET",
         headers: {
             Cookie: cookie,
