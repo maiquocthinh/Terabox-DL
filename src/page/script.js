@@ -55,8 +55,19 @@ const TreeView = (function () {
                 fileDownloadBtn.innerHTML = '<i class="fa-solid fa-download"></i>'
                 fileDownloadBtn.onclick = item.downloadAction
 
+                // create <button class="video-play">
+                const videoPlayBtn = document.createElement("button");
+                videoPlayBtn.className = "video-play";
+                videoPlayBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+                videoPlayBtn.onclick = item.playAction;
+                if (item.category !== 1) {
+                    videoPlayBtn.disabled = true;
+                    videoPlayBtn.style.opacity = 0.25;
+                }
+
                 // append fileDownloadBtn to li
                 sizeAndDownloadDiv.appendChild(fileDownloadBtn)
+                sizeAndDownloadDiv.appendChild(videoPlayBtn);
                 li.appendChild(sizeAndDownloadDiv)
 
                 // append li to rootList
