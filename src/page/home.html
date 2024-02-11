@@ -26,6 +26,7 @@
                 <button id="get-link-button">Get Link</button>
             </div>
             <div class="output">
+                <video class="video" id="videoPlayer" controls></video>
                 <div class="tree-view"></div>
             </div>
         </div>
@@ -80,6 +81,23 @@
 
                                         window.open(res.downloadLink, '_blank')
                                     },
+                                     playAction:
+                                    item.is_dir != 0 ||
+                                    async function () {
+                                        const res = await fetchDownload({
+                                            shareid: body.shareid,
+                                            uk: body.uk,
+                                            sign: body.sign,
+                                            timestamp: body.timestamp,
+                                            fs_id: item.fs_id,
+                                        });
+
+                                        if (!res.ok) return alert(res.message);
+
+                                        videoElement.src = res.downloadLink;
+                                        videoElement.style.display = "block";
+                                        document.title = item.filename;
+                                    },
                             }))
                         }
 
@@ -92,6 +110,7 @@
             const inputUrl = document.getElementById("input-url")
             const inputPassword = document.getElementById("input-password")
             const treeViewElement = document.querySelector(".tree-view")
+            const videoElement = document.querySelector("#videoPlayer");
 
             getLinkButton.addEventListener("click", async function () {
                 const url = inputUrl.value
